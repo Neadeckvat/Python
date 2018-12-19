@@ -9,6 +9,16 @@ __author__ = "Варщук Виталий"
 
 print('\nЗадание-1')
 
+import math
+
+array = [2, -5, 8, 9, -25, 25, 4]
+new_array = []
+
+for i in array:
+    if  i > 0 and math.sqrt(i) % 1 == 0:
+        new_array.append(int(math.sqrt(i)))
+print(new_array)
+
 # Задача-2: Дана дата в формате dd.mm.yyyy, например: 02.11.2013.
 # Ваша задача вывести дату в текстовом виде, например: второе ноября 2013 года.
 # Склонением пренебречь (2000 года, 2010 года)
@@ -21,3 +31,13 @@ print('\nЗадание-2')
 # для получения случайного числа используйте функцию randint() модуля random
 
 print('\nЗадание-3')
+
+import random
+
+n = int(input("Введите количество элементов в списке: "))
+
+numbers = []
+
+for i in range(n):
+    numbers.append(random.randint(-100, 100))
+print(numbers)
