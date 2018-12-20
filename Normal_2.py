@@ -73,6 +73,9 @@ for i in dd.keys():
     elif 20 < int(date[0]) < 30:
         if int(i) == int(date[0][1]):
             new_date = dd['20'] + ' ' + dd[i]
+    elif  int(date[0]) == 31:
+        if int(i) == int(date[0][1]):
+            new_date = dd['30'] + ' ' + dd[i]
 
 for i in range(len(mm)):
     if int(i + 1) == int(date[1]):
