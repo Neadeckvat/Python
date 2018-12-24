@@ -8,8 +8,19 @@ __author__ = "Виталий Варщук"
 
 print("\nЗадание-1")
 
+
 def my_round(number, ndigits):
-    pass
+    int_number = number // 1
+    float_number = number - int_number
+    end_number = ((float_number * 10 ** (ndigits + 1)) // 1) - ((float_number * 10 ** (ndigits)) // 1) * 10
+    if end_number >= 5:
+        float_number = ((float_number * 10 ** ndigits // 1) + 1) / (10 ** ndigits)
+    elif end_number < 5:
+        float_number = (float_number * 10 ** ndigits // 1) / (10 ** ndigits)
+    else:
+        pass
+    return int_number + float_number
+
 
 print(my_round(2.1234567, 5))
 print(my_round(2.1999967, 5))
@@ -23,6 +34,7 @@ print(my_round(2.9999967, 5))
 # !!!P.S.: функция не должна НИЧЕГО print'ить
 
 print("\nЗадание-2")
+
 
 def lucky_ticket(ticket_number):
     num_1 = 0
