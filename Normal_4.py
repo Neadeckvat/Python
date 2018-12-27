@@ -40,7 +40,7 @@ def create_number(my_string):
     return longest_string
 
 
-# create_new_file("For_Normal_4.txt")
+create_new_file("For_Normal_4.txt")
 print(read_file("For_Normal_4.txt"))
 
 
