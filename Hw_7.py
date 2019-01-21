@@ -49,8 +49,7 @@ import random
 
 
 class Card:
-    def __init__(self, lst):
-        self.game_kegs = lst
+    def __init__(self):
         self.card = self.create_card()
         self.start = "-" * 26
         self.end = "-" * 26
@@ -72,6 +71,18 @@ class Card:
                 full_list[line][num] = "  "
         return full_list
 
+    def check_card(self, keg):
+        if len(str(keg)) < 2:
+            keg = " " + str(keg)
+        else:
+            keg = str(keg)
+        for line in range(len(self.card)):
+            for i in range(len(self.card[line])):
+                if keg == self.card[line][i]:
+                    self.card[line][i] = ' +'
+                    return 'Ответ верен'
+        return 'Ответ не верен'
+
     @staticmethod
     def create_kegs_list():
         kegs = [str(i) for i in range(1, 91)]
@@ -83,21 +94,42 @@ class Card:
 
 
 class UserCard(Card):
-    def __init__(self, lst):
-        Card.__init__(self, lst)
+    def __init__(self):
+        Card.__init__(self)
         self.start = f'{"-" * 6} Ваша карточка {"-" * 5}'
 
 
 class ComputerCard(Card):
-    def __init__(self, lst):
-        Card.__init__(self, lst)
+    def __init__(self):
+        Card.__init__(self)
         self.start = f'{"-" * 2} Карточка компьютера {"-" * 3}'
 
 
 game_kegs = [i for i in range(1, 91)]
 random.shuffle(game_kegs)
 
-user = UserCard(game_kegs)
-computer = ComputerCard(game_kegs)
-print(user)
-print(computer)
+user = UserCard()
+computer = ComputerCard()
+
+for i in range(len(game_kegs)):
+    print(f'\nНовый бочонок: {game_kegs[i]} (осталось {len(game_kegs) - i - 1})')
+    print(user)
+    print(computer)
+    answer = input('Зачеркнуть цифру? (y/n): ').lower()
+    if answer == "y":
+        check = user.check_card(game_kegs[i])
+        if check == 'Ответ не верен':
+            print(f"\nИгрок проиграл (цифры {game_kegs[i]} нет в ваше карточке)")
+            break
+    elif answer == "n":
+        check = user.check_card(game_kegs[i])
+        if check == 'Ответ верен':
+            print(f"\nИгрок проиграл (цифра {game_kegs[i]} была в вашей карточке)")
+            break
+    computer.check_card(game_kegs[i])
+    if len(set(user.card[0] + user.card[1] + user.card[2])) == 2:
+        print("\nИгрок выйграл")
+        break
+    if len(set(computer.card[0] + computer.card[1] + computer.card[2])) == 2:
+        print("\nКомпьютер выйграл")
+        break
