@@ -44,3 +44,60 @@ __author__ = "Виталий Варщук"
 Подсказка: для работы с псевдослучайными числами удобно использовать
 модуль random: http://docs.python.org/3/library/random.html
 """
+
+import random
+
+
+class Card:
+    def __init__(self, lst):
+        self.game_kegs = lst
+        self.card = self.create_card()
+        self.start = "-" * 26
+        self.end = "-" * 26
+
+    def __str__(self):
+        return f'{self.start}\n{" ".join(self.card[0])}\n{" ".join(self.card[1])}\n{" ".join(self.card[2])}\n{self.end}'
+
+    def create_card(self):
+        kegs_list = self.create_kegs_list()
+        num_lines = 3
+        len_line = 9
+        full_list = [kegs_list[:len_line * 3][i::num_lines] for i in range(num_lines)]
+        for line in range(len(full_list)):
+            random_nums = [i for i in range(len(full_list[line]))]
+            random.shuffle(random_nums)
+            for num in random_nums:
+                if len(set(full_list[line])) < 7:
+                    break
+                full_list[line][num] = "  "
+        return full_list
+
+    @staticmethod
+    def create_kegs_list():
+        kegs = [str(i) for i in range(1, 91)]
+        for i in range(len(kegs)):
+            if len(kegs[i]) < 2:
+                kegs[i] = " " + kegs[i]
+        random.shuffle(kegs)
+        return kegs
+
+
+class UserCard(Card):
+    def __init__(self, lst):
+        Card.__init__(self, lst)
+        self.start = f'{"-" * 6} Ваша карточка {"-" * 5}'
+
+
+class ComputerCard(Card):
+    def __init__(self, lst):
+        Card.__init__(self, lst)
+        self.start = f'{"-" * 2} Карточка компьютера {"-" * 3}'
+
+
+game_kegs = [i for i in range(1, 91)]
+random.shuffle(game_kegs)
+
+user = UserCard(game_kegs)
+computer = ComputerCard(game_kegs)
+print(user)
+print(computer)
