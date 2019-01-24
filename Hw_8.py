@@ -3,6 +3,22 @@ __author__ = "Варщук Виталий"
 # 1. Дано предложение. Заменить группы пробелов одиночными, крайние пробелы удалить.
 # Все слова перевести в нижний регистр, первые буквы сделать заглавными.
 
+
+def change_text(txt):
+    txt = txt.strip()
+    txt_lst = txt.split(" ")
+    while '' in txt_lst:
+        txt_lst.remove('')
+    txt = ' '.join(txt_lst).title()
+    return txt
+
+
+sentence = input("Введите предложение: ")
+
+sentence = change_text(sentence)
+
+print(sentence)
+
 # 2. Дана строка. Заменить все ссылки и email на ***** (количество звездочек равно длине заменяемого фрагмента).
 # Примеры ссылок: www.site.com, http://site.com и т.п.
 
