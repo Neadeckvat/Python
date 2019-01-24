@@ -17,10 +17,20 @@ def check_url(txt, url_lst):
     return txt_lst
 
 
+def check_mail(txt):
+    txt_lst = txt.split(' ')
+    for n in range(len(txt_lst)):
+        if "@" in txt_lst[n] and "." in txt_lst[n]:
+            txt_lst[n] = '*' * len(txt_lst[n])
+    txt_lst = ' '.join(txt_lst)
+    return txt_lst
+
+
 url_list = ['http://', 'https://', 'www.']
 
 text = input("Введите текст: ")
 text = check_url(text, url_list)
+text = check_mail(text)
 print(text)
 
 # 3. Пользователь бесконечно вводит e-mail адреса. Вывести только те, которые не повторяются.
